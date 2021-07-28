@@ -22,7 +22,15 @@ public class UserInfo implements Serializable {
     /**
      * 1买家2卖家
      */
-    private Boolean role;
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     /**
      * 创建时间
@@ -68,13 +76,9 @@ public class UserInfo implements Serializable {
         this.openid = openid;
     }
 
-    public Boolean getRole() {
-        return role;
-    }
 
-    public void setRole(Boolean role) {
-        this.role = role;
-    }
+
+
 
     public Date getCreateTime() {
         return createTime;

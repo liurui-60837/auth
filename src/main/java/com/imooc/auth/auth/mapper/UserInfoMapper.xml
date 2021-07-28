@@ -6,7 +6,7 @@
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="openid" jdbcType="VARCHAR" property="openid" />
-    <result column="role" jdbcType="BOOLEAN" property="role" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -19,6 +19,12 @@
     from user_info
     where id = #{id,jdbcType=VARCHAR}
   </select>
+  <select id="selectByOpenId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_info
+    where openid = #{openid,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from user_info
     where id = #{id,jdbcType=VARCHAR}
@@ -28,7 +34,7 @@
       `role`, create_time, update_time
       )
     values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, 
-      #{role,jdbcType=BOOLEAN}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      #{role,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.imooc.auth.auth.model.UserInfo" useGeneratedKeys="true">
@@ -64,7 +70,7 @@
         #{openid,jdbcType=VARCHAR},
       </if>
       <if test="role != null">
-        #{role,jdbcType=BOOLEAN},
+        #{role,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -87,7 +93,7 @@
         openid = #{openid,jdbcType=VARCHAR},
       </if>
       <if test="role != null">
-        `role` = #{role,jdbcType=BOOLEAN},
+        `role` = #{role,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -103,7 +109,7 @@
     set username = #{username,jdbcType=VARCHAR},
       `password` = #{password,jdbcType=VARCHAR},
       openid = #{openid,jdbcType=VARCHAR},
-      `role` = #{role,jdbcType=BOOLEAN},
+      `role` = #{role,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
